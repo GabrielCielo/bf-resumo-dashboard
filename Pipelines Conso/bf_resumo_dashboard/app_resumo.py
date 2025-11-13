@@ -94,8 +94,19 @@ def _highlight_delta(row):
 # ==========================
 # IMPORTAR BASES (CORRIGIDO)
 # ==========================
-BASE_DIR = Path(r"C:\Users\gabri\OneDrive\Desktop\Consolatio\Databases")
-INTERM_DIR = Path(r"C:\Users\gabri\OneDrive\Desktop\Consolatio\intermediarios")
+# Baseado na posição real do app_resumo.py dentro do repositório:
+# /Pipelines Conso/bf_resumo_dashboard/app_resumo.py
+APP_PATH = Path(__file__).resolve()
+BF_DIR   = APP_PATH.parent              # .../Pipelines Conso/bf_resumo_dashboard
+ROOT_DIR = BF_DIR.parent                # .../Pipelines Conso
+
+BASE_DIR  = ROOT_DIR / "Databases"
+INTERM_DIR = ROOT_DIR / "intermediarios"
+
+# Debug opcional (pode comentar se quiser)
+# st.write("ROOT_DIR:", ROOT_DIR)
+# st.write("BASE_DIR:", BASE_DIR)
+# st.write("INTERM_DIR:", INTERM_DIR)
 
 # --- Profit-sessoes ---
 profit = pd.read_csv(
@@ -132,7 +143,7 @@ if col_fat.str.contains(",", regex=False).any():
         .str.replace("R$", "", regex=False)
         .str.replace(" ", "", regex=False)
         .str.replace(".", "", regex=False)   # remove milhar
-        .str.replace(",", ".", regex=False) # vírgula → ponto
+        .str.replace(",", ".", regex=False)  # vírgula → ponto
         .pipe(pd.to_numeric, errors="coerce")
     )
 else:
@@ -161,8 +172,7 @@ orders["Cliente qnt de pedidos"] = (
     .astype(int)
 )
 
-
-# Data como datetime
+# Data como datetime (reforço)
 profit["Data"] = pd.to_datetime(profit["Data"], errors="coerce")
 orders["Data"] = pd.to_datetime(orders["Data"], errors="coerce")
 
