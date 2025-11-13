@@ -92,21 +92,21 @@ def _highlight_delta(row):
     return [f"background-color: {color}"] * len(row)
 
 # ==========================
-# IMPORTAR BASES (CORRIGIDO)
+# IMPORTAR BASES (CORRIGIDO PARA STREAMLIT CLOUD)
 # ==========================
-# Baseado na posição real do app_resumo.py dentro do repositório:
-# /Pipelines Conso/bf_resumo_dashboard/app_resumo.py
-APP_PATH = Path(__file__).resolve()
-BF_DIR   = APP_PATH.parent              # .../Pipelines Conso/bf_resumo_dashboard
-ROOT_DIR = BF_DIR.parent                # .../Pipelines Conso
+# APP_DIR = pasta onde está o app_resumo.py
+APP_DIR   = Path(__file__).resolve().parent
 
-BASE_DIR  = ROOT_DIR / "Databases"
-INTERM_DIR = ROOT_DIR / "intermediarios"
+# Pastas *dentro do repositório* (mesmo nível do app_resumo.py)
+BASE_DIR   = APP_DIR / "Databases"
+INTERM_DIR = APP_DIR / "intermediarios"
 
-# Debug opcional (pode comentar se quiser)
-# st.write("ROOT_DIR:", ROOT_DIR)
+# Debug opcional (só para conferir no Cloud)
+# st.write("APP_DIR:", APP_DIR)
 # st.write("BASE_DIR:", BASE_DIR)
 # st.write("INTERM_DIR:", INTERM_DIR)
+
+
 
 # --- Profit-sessoes ---
 profit = pd.read_csv(
